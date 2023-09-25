@@ -2,7 +2,7 @@
 
 ## Overview:
 This is a non-work project for me to explore datasets related to my interests and gain practice with my R skills. 
-I will start with exploratory analysisand see if anything interesting arises to pursue and analyze further.
+I will start with exploratory analysis and see if anything interesting arises to pursue and analyze further.
 
 ## My interests: 
 My interest in Madagascar stems from my time there in the Peace Corps, and my interest in infectious diseases 
