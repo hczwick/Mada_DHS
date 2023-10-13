@@ -1,9 +1,12 @@
 # Data Exploration
 
 
+#### Set-Up ####
+
 ## Load relevant libraries
 library(dplyr)
 library(ggplot2)
+library(tidyr)
 
 ## Check working directory (should be 'Mada_DHS')
 getwd()
@@ -11,7 +14,8 @@ getwd()
 ## Read in the first csv
 data <- read.csv("infectious_diseases_indicators_mdg.csv")
 
-## Clean Up the Data
+
+#### Clean Up the Data ####
 View(data)
 
 ### Keep the code, display, year, and display value. Remove the first row.
@@ -52,11 +56,13 @@ data <- data %>%
   arrange(year)
 
 
+#### Ideas ####
 
-### Ideas: 
 # cholera death vs case
 # neonatal tetanus as % of all tetanus
 
+
+#### Concept 1 ####
 
 ### Graph 1: Cases over time (line graph) with all diseases
 deaths_line_all <- data %>%
@@ -72,7 +78,36 @@ deaths_line_all <- data %>%
 
 deaths_line_all
 
-  
+
+#### Concept 2 ####
+
+## Transform to cholera-specific wide data - each year has just one row
+
+### Filter down
+data_cholera <- data %>%
+  filter(disease == "cholera") %>%
+  filter(type != "fatality_rate")
+
+### Pivot
+data_cholera <- data_cholera %>%
+  pivot_wider(names_from = type, values_from = count, values_fill = 0)
+
+### Graph 2: Cholera cases vs deaths
+
+library(ggplot2)
+
+cholera_cases_deaths <- ggplot(data_cholera) +
+  aes(x = year, y = death) +
+  geom_line(colour = "#112446") +
+  geom_line(data = data_cholera, aes(x = year, y = case), colour = "#FF5733") +
+  labs(x = "Year", y = "Count", 
+       title = "Cholera Deaths vs Cases", subtitle = "1971 - 2006") +
+  theme_minimal()
+
+cholera_cases_deaths
+
+    #### idea - could put fatality_rate values as text boxes over the years with deaths
+
 
 
 
