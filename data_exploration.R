@@ -3,6 +3,10 @@
 
 ## Load relevant libraries
 library(dplyr)
+library(ggplot2)
+
+## Check working directory (should be 'Mada_DHS')
+getwd()
 
 ## Read in the first csv
 data <- read.csv("infectious_diseases_indicators_mdg.csv")
@@ -53,6 +57,20 @@ data <- data %>%
 # cholera death vs case
 # neonatal tetanus as % of all tetanus
 
+
+### Graph 1: Cases over time (line graph) with all diseases
+deaths_line_all <- data %>%
+ filter(type %in% "case") %>%
+ ggplot() +
+ aes(x = year, y = count, colour = disease) +
+ geom_line() +
+ scale_color_hue(direction = 1) +
+ labs(x = "Year", y = "Cases", title = "Cases of Infectious Diseases in Madagascar", subtitle = "1971 - 2022") +
+ theme_minimal() +
+ theme(plot.title = element_text(size = 15L, hjust = 0.5), plot.subtitle = element_text(face = "italic", 
+ hjust = 0.5))
+
+deaths_line_all
 
   
 
